@@ -1,103 +1,126 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-    <meta charset='utf-8'>
-    <script src='https://www.w3.org/Tools/respec/respec-w3c' class='remove'></script>
-    <script class='remove'>
-        var respecConfig = {
-            specStatus: "ED",
-            group: "wg/wot",
-            editors: [
-                {
-                    name: "Jan Romann",
-                    w3cid: "129690",
-                    company: "Invited Expert",
-                    companyURL: "https://github.com/JKRhb"
+    <head>
+        <meta charset="utf-8" />
+        <script
+            src="https://www.w3.org/Tools/respec/respec-w3c"
+            class="remove"
+        ></script>
+        <script class="remove">
+            var respecConfig = {
+                specStatus: "ED",
+                group: "wg/wot",
+                editors: [
+                    {
+                        name: "Jan Romann",
+                        w3cid: "129690",
+                        company: "Invited Expert",
+                        companyURL: "https://github.com/JKRhb",
+                    },
+                ],
+                edDraftURI:
+                    "https://w3c.github.io/wot-binding-templates/bindings/protocols/coap/",
+                shortName: "wot-coap-binding",
+                github: "https://github.com/w3c/wot-binding-templates",
+                otherLinks: [
+                    {
+                        key: "Core Binding Templates Specification",
+                        data: [
+                            {
+                                value: "Web of Things (WoT) Binding Templates",
+                                href: "../../../index.html",
+                            },
+                        ],
+                    },
+                    {
+                        key: "JSON Schema",
+                        data: [
+                            {
+                                value: "NDN JSON Schema",
+                                href: "ndn.schema.json",
+                            },
+                        ],
+                    },
+                    {
+                        key: "Ontology",
+                        data: [
+                            {
+                                value: "NDN Vocabulary for the Web of Things",
+                                href: "ontology.html",
+                            },
+                        ],
+                    },
+                ],
+                localBiblio: {
+                    "WoT-over-NDN": {
+                        title: "An Approach for Web of Things over Named Data Networking",
+                        href: "https://doi.org/10.1145/3567445.3571106",
+                        authors: [
+                            "Junior Dongo",
+                        ],
+                        date: "7-10 November 2022",
+                        publisher:
+                            "Association for Computing Machinery (ACM): IoT'22 Proceedings",
+                    },
                 },
-            ],
-            edDraftURI: "https://w3c.github.io/wot-binding-templates/bindings/protocols/coap/",
-            shortName: "wot-coap-binding",
-            github: "https://github.com/w3c/wot-binding-templates",
-            otherLinks: [
-              {
-                key: "Core Binding Templates Specification",
-                data: [
-                    {
-                    value: "Web of Things (WoT) Binding Templates",
-                    href: "../../../index.html"
-                    }
-                ]
-              },
-              {
-                key: "JSON Schema",
-                data: [
-                    {
-                        value: "NDN JSON Schema",
-                        href: "ndn.schema.json"
-                    }
-                ]
-               },
-               {
-                   key: "Ontology",
-                   data: [
-                       {
-                       value: "NDN Vocabulary for the Web of Things",
-                       href: "ontology.html",
-                       }
-                   ]
-               }
-            ]
-        };
-    </script>
-    <title>Web of Things (WoT) CoAP Binding Template</title>
-</head>
+            };
+        </script>
+        <title>Web of Things (WoT) CoAP Binding Template</title>
+    </head>
 
-<body>
-    <section id='abstract'>
-        <p>
-            In the context of the Web of Things (WoT), a Binding Template is a blueprint that gives guidance on how to
-            implement a specific IoT protocol, data format or IoT platform.
-            The Core Binding Templates specification explains the overall mechanism and requirements for any binding to follow.
-            This document gives implementation guidelines regarding the use of Named Data Networking (NDN), which
-            is a new Information-Centric Approach for communicating via the Internet.
-            <!-- TODO: Improve/Rework -->
-        </p>
-        <p>
-            More specifically, this document defines a set of vocabulary terms that can be used inside a Thing Description document,
-            and associated rules which allow to describe WoT operations using NDN.
-            Additionally, relevant examples are provided to showcase different vocabulary terms and the associated behavior.
-        </p>
-    </section>
-    <section id='introduction'>
-        <h2>Introduction</h2>
-        <p>
-            TODO
-        </p>
-        <p>
-            This document describes how to present devices that use NDN in a Thing Description.
-            In particular, the document explain how to create valid Forms that allow for interacting with one or multiple devices using NDN.
-        </p>
-    </section>
-    <section id='sotd'>
-        <p>
-            <em>This document is a work in progress</em>
-        </p>
-    </section>
-    <section id="overview">
-        <h2>Protocol Overview</h2>
-        <p>
-            TODO
-        </p>
-        <p>
-            An example for using the NDN binding with a WoT Thing Description
-            can be seen in [[[#example-single-thing]]].
-            Here, we have an NDN name expressed as an NDN URI (TODO: cite specification)
-            in the `href` field of the `status` property.
-            In this example, the TD describes a single Thing available over NDN which
-            can be uniquely addressed via its `id` within the NDN name.
-        </p>
-        <pre id="example-single-thing" class="example" title="A simple Thing Description using NDN">
+    <body>
+        <section id="abstract">
+            <p>
+                In the context of the Web of Things (WoT), a Binding Template is
+                a blueprint that gives guidance on how to implement a specific
+                IoT protocol, data format or IoT platform. The Core Binding
+                Templates specification explains the overall mechanism and
+                requirements for any binding to follow. This document gives
+                implementation guidelines regarding the use of Named Data
+                Networking (NDN), which is a new Information-Centric Approach
+                for communicating via the Internet.
+                <!-- TODO: Improve/Rework -->
+            </p>
+            <p>
+                More specifically, this document defines a set of vocabulary
+                terms that can be used inside a Thing Description document, and
+                associated rules which allow to describe WoT operations using
+                NDN. Additionally, relevant examples are provided to showcase
+                different vocabulary terms and the associated behavior.
+            </p>
+        </section>
+        <section id="introduction">
+            <h2>Introduction</h2>
+            <p>TODO</p>
+            <p>
+                This document describes how to present devices that use NDN in a
+                Thing Description. In particular, the document explain how to
+                create valid Forms that allow for interacting with one or
+                multiple devices using NDN.
+            </p>
+        </section>
+        <section id="sotd">
+            <p>
+                <em>This document is a work in progress</em>
+            </p>
+        </section>
+        <section id="overview">
+            <h2>Protocol Overview</h2>
+            <p>TODO</p>
+            <p>
+                An example for using the NDN binding with a WoT Thing
+                Description can be seen in [[[#example-single-thing]]]. Here, we
+                have an NDN name expressed as an NDN URI (TODO: cite
+                specification) in the `href` field of the `status` property. In
+                this example, the TD describes a single Thing available over NDN
+                which can be uniquely addressed via its `id` within the NDN
+                name.
+            </p>
+            <pre
+                id="example-single-thing"
+                class="example"
+                title="A simple Thing Description using NDN"
+            >
             {
                 "@context": "https://www.w3.org/2022/wot/td/v1.1",
                 "title": "Named Data Networking WoT TD Example",
@@ -114,27 +137,31 @@
                     }
                 }
             }
-        </pre>
-        <p>
-            Note, however, that since NDN focuses on resources, an NDN name does
-            not need to refer only to a single host.
-            Instead, a resource can be available on multiple hosts at the same
-            time, where the decision which host is going to be addressed might
-            be made by forwarders. TODO: Rewrite
-        </p>
-        <p>
-            An example for this approach can be seen in 
-            [[#example-multiple-things]]].
-            Here, we have multiple sensors described by a single TD, available 
-            under a single NDN name encoded as a URI.
-            Sending an Interest packet to this name will yield the measured
-            temperature of all the nodes at the same time.
-            Therefore, this TD embodies an approach to interacting with Things
-            that is vastly different than the classic REST model used by HTTP or
-            CoAP, for example.
-            TODO: Is this actually working?
-        </p>
-        <pre id="example-multiple-things" class="example" title="A TD referring to multiple Things using NDN">
+        </pre
+            >
+            <p>
+                Note, however, that since NDN focuses on resources, an NDN name
+                does not need to refer only to a single host. Instead, a
+                resource can be available on multiple hosts at the same time,
+                where the decision which host is going to be addressed might be
+                made by forwarders. TODO: Rewrite
+            </p>
+            <p>
+                An example for this approach can be seen in
+                [[#example-multiple-things]]]. Here, we have multiple sensors
+                described by a single TD, available under a single NDN name
+                encoded as a URI. Sending an Interest packet to this name will
+                yield the measured temperature of all the nodes at the same
+                time. Therefore, this TD embodies an approach to interacting
+                with Things that is vastly different than the classic REST model
+                used by HTTP or CoAP, for example. TODO: Is this actually
+                working?
+            </p>
+            <pre
+                id="example-multiple-things"
+                class="example"
+                title="A TD referring to multiple Things using NDN"
+            >
             {
                 "@context": "https://www.w3.org/2022/wot/td/v1.1",
                 "title": "Named Data Networking WoT TD Example",
@@ -151,160 +178,174 @@
                     }
                 }
             }
-        </pre>
-        <p>
-            The following sections provide an overview of the NDN features defined at the time of writing and give examples of a how these can be used in a [[[WOT-THING-DESCRIPTION]]].
-            The vocabulary terms used in these examples are defined in section [[[#vocabulary]]].
-        </p>
-    </section>
-    <section id="url">
-        <h2>URI Schemes</h2>
-        <p>
-            NDN uses the following Uniform Resource Identifier (URI) schemes for expressing NDN names
-            and providing a means of locating the resource:
-        </p>
-        <table class="data">
-            <thead>
-                <tr>
-                    <th>URI Scheme</th>
-                    <th>Reference</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>ndn</td>
-                    <td>TODO</td>
-                </tr>
-            </tbody>
-        </table>
-        <p>
-            See the <a href="https://www.iana.org/assignments/uri-schemes/">Uniform Resource Identifier (URI) Schemes</a>
-            registry for the complete list of NDN URI schemes.
-            <!-- FIXME: NDN is not present there yet. -->
-        </p>
-    </section>
-    <section id="vocabulary">
-        <h2>NDN Vocabulary</h2>
-        <p>
-            This section describes the vocabulary used in NDN.
-            A protocol binding implementation should use the vocabulary defined
-            in this section to describe the different configuration that can be
-            used to exchanged data between Web of Things.
-        </p>
-        <section>
-            <h3>Form terms</h3>
-            <table class="def">
-                <thead>
-                    <tr>
-                        <th>Vocabulary term</th>
-                        <th>Description</th>
-                        <th>Assignment</th>
-                        <th>Type</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Form terms from the ontology -->
-                </tbody>
-            </table>
+        </pre
+            >
+            <p>
+                The following sections provide an overview of the NDN features
+                defined at the time of writing and give examples of a how these
+                can be used in a [[[WOT-THING-DESCRIPTION]]]. The vocabulary
+                terms used in these examples are defined in section
+                [[[#vocabulary]]].
+            </p>
         </section>
-    </section>
-    <section id="mappings">
-        <h2>Mappings</h2>
-        <p>
-            This section describes the strategies and default values to use
-            protocol specific concepts within the
-            <a href="https://w3c.github.io/wot-architecture/#dfn-interaction-model">WoT Interaction model</a>.
-        </p>
-        <section id="default-mappings">
-            <h3>Default mappings</h3>
-            <table class="def">
+        <section id="url">
+            <h2>URI Schemes</h2>
+            <p>
+                NDN uses the following Uniform Resource Identifier (URI) schemes
+                for expressing NDN names and providing a means of locating the
+                resource:
+            </p>
+            <table class="data">
                 <thead>
                     <tr>
-                        <th>Operation</th>
-                        <th>Default Binding</th>
+                        <th>URI Scheme</th>
+                        <th>Reference</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td><code>readproperty</code></td>
-                        <td><code>???</code></td>
-                    </tr>
-                    <tr>
-                        <td><code>writeproperty</code></td>
-                        <td><code>???</code></td>
-                    </tr>
-                    <tr>
-                        <td><code>observeproperty</code></td>
-                        <td><code>???</code></td>
-                    </tr>
-                    <tr>
-                        <td><code>unobserveproperty</code></td>
-                        <td><code>???</code></td>
-                    </tr>
-                    <tr>
-                        <td><code>readmultipleproperties</code></td>
-                        <td><code>???</code></td>
-                    </tr>
-                    <tr>
-                        <td><code>writemultipleproperties</code></td>
-                        <td><code>???</code></td>
-                    </tr>
-                    <tr>
-                        <td><code>readallproperties</code></td>
-                        <td><code>???</code></td>
-                    </tr>
-                    <tr>
-                        <td><code>writeallproperties</code></td>
-                        <td><code>???</code></td>
-                    </tr>
-                    <tr>
-                        <td><code>observeallproperties</code></td>
-                        <td><code>???</code></td>
-                    </tr>
-                    <tr>
-                        <td><code>unobserveallproperties</code></td>
-                        <td><code>???</code></td>
-                    </tr>
-                    <tr>
-                        <td><code>invokeaction</code></td>
-                        <td><code>???</code></td>
-                    </tr>
-                    <tr>
-                        <td><code>queryaction</code></td>
-                        <td><code>???</code></td>
-                    </tr>
-                    <tr>
-                        <td><code>cancelaction</code></td>
-                        <td><code>???</code></td>
-                    </tr>
-                    <tr>
-                        <td><code>queryallactions</code></td>
-                        <td><code>???</code></td>
-                    </tr>
-                    <tr>
-                        <td><code>subscribeevent</code></td>
-                        <td><code>???</code></td>
-                    </tr>
-                    <tr>
-                        <td><code>unsubscribeevent</code></td>
-                        <td><code>???</code></td>
-                    </tr>
-                    <tr>
-                        <td><code>subscribeallevents</code></td>
-                        <td><code>???</code></td>
-                    </tr>
-                    <tr>
-                        <td><code>unsubscribeallevents</code></td>
-                        <td><code>???</code></td>
+                        <td>ndn</td>
+                        <td>TODO</td>
                     </tr>
                 </tbody>
             </table>
+            <p>
+                See the
+                <a href="https://www.iana.org/assignments/uri-schemes/"
+                    >Uniform Resource Identifier (URI) Schemes</a
+                >
+                registry for the complete list of NDN URI schemes.
+                <!-- FIXME: NDN is not present there yet. -->
+            </p>
         </section>
-        <section id="possible-mappings">
-            <h3>Possible mappings</h3>
-            <p class="ednote">TODO: This section should describe other mappings that can be used by TD designers. It is meant to be informative but it provides guidelines for implementers.</p>
+        <section id="vocabulary">
+            <h2>NDN Vocabulary</h2>
+            <p>
+                This section describes the vocabulary used in NDN. A protocol
+                binding implementation should use the vocabulary defined in this
+                section to describe the different configuration that can be used
+                to exchanged data between Web of Things.
+            </p>
+            <section>
+                <h3>Form terms</h3>
+                <table class="def">
+                    <thead>
+                        <tr>
+                            <th>Vocabulary term</th>
+                            <th>Description</th>
+                            <th>Assignment</th>
+                            <th>Type</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Form terms from the ontology -->
+                    </tbody>
+                </table>
+            </section>
         </section>
-    </section>
-</body>
-
+        <section id="mappings">
+            <h2>Mappings</h2>
+            <p>
+                This section describes the strategies and default values to use
+                protocol specific concepts within the
+                <a
+                    href="https://w3c.github.io/wot-architecture/#dfn-interaction-model"
+                    >WoT Interaction model</a
+                >.
+            </p>
+            <section id="default-mappings">
+                <h3>Default mappings</h3>
+                <table class="def">
+                    <thead>
+                        <tr>
+                            <th>Operation</th>
+                            <th>Default Binding</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>readproperty</code></td>
+                            <td><code>???</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>writeproperty</code></td>
+                            <td><code>???</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>observeproperty</code></td>
+                            <td><code>???</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>unobserveproperty</code></td>
+                            <td><code>???</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>readmultipleproperties</code></td>
+                            <td><code>???</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>writemultipleproperties</code></td>
+                            <td><code>???</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>readallproperties</code></td>
+                            <td><code>???</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>writeallproperties</code></td>
+                            <td><code>???</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>observeallproperties</code></td>
+                            <td><code>???</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>unobserveallproperties</code></td>
+                            <td><code>???</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>invokeaction</code></td>
+                            <td><code>???</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>queryaction</code></td>
+                            <td><code>???</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>cancelaction</code></td>
+                            <td><code>???</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>queryallactions</code></td>
+                            <td><code>???</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>subscribeevent</code></td>
+                            <td><code>???</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>unsubscribeevent</code></td>
+                            <td><code>???</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>subscribeallevents</code></td>
+                            <td><code>???</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>unsubscribeallevents</code></td>
+                            <td><code>???</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+            <section id="possible-mappings">
+                <h3>Possible mappings</h3>
+                <p class="ednote">
+                    TODO: This section should describe other mappings that can
+                    be used by TD designers. It is meant to be informative but
+                    it provides guidelines for implementers.
+                </p>
+            </section>
+        </section>
+    </body>
 </html>
