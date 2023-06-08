@@ -167,7 +167,12 @@
         </p>
         <pre id="example-multiple-things" class="example" title="A TD referring to multiple Things using NDN">
             {
-                "@context": "https://www.w3.org/2022/wot/td/v1.1",
+                "@context": [
+                    "https://www.w3.org/2022/wot/td/v1.1",
+                    {
+                        "ndn": "https://www.example.com/ns/ndn"
+                    }
+                ],
                 "title": "Named Data Networking WoT TD Example",
                 "id": "urn:TODO",
                 "properties": {
@@ -250,6 +255,9 @@
             protocol specific concepts within the
             <a href="https://w3c.github.io/wot-architecture/#dfn-interaction-model">WoT Interaction model</a>.
         </p>
+
+        TODO: Introduce mechanism for writing data.
+
         <section id="default-mappings">
             <h3>Default mappings</h3>
             <table class="def">
