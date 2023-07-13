@@ -143,9 +143,8 @@
                         "type": "string",
                         "readOnly": true,
                         "forms": [{
-                            "href": "ndn://example-domain/thermostat-01/properties/a3a54675-6324-444f-93ca-139-dc7ab3317/temperature",
-                            <!-- TODO: How to deal with the contentType here? -->
-                            "contentType": "application/json",
+                            "href": "ndn://example-domain/thermostat-01/properties/a3a54675-6324-444f-93ca-139-dc7ab3317/temperature", <!-- TODO: To what extent should the URI be limited to the convention in Junior's paper? -->
+                            "contentType": "application/json", <!-- TODO: How to deal with the contentType here? -->
                             "op": ["readproperty"]
                         }]
                     }
