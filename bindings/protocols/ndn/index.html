@@ -78,19 +78,21 @@
         <p>
             In the context of the Web of Things (WoT), a Binding Template is
             a blueprint that gives guidance on how to implement a specific
-            IoT protocol, data format or IoT platform. The Core Binding
-            Templates specification explains the overall mechanism and
-            requirements for any binding to follow. This document gives
-            implementation guidelines regarding the use of Named Data
-            Networking (NDN), which is a new Information-Centric Approach
-            for communicating via the Internet.
-            <!-- TODO: Improve/Rework -->
+            IoT protocol, data format or IoT platform.
+            The Core Binding Templates specification explains the overall
+            mechanism and requirements for any binding to follow.
+            This document gives implementation guidelines regarding the use
+            of Named Data Networking (NDN) in a WoT-context.
+            NDN is a relatively new Information-Centric Approach for
+            Internet-communication that can be used both <em>over</em> the
+            Internet Protocol (IP) and as a <em>replacement</em> for IP.
         </p>
         <p>
             More specifically, this document defines a set of vocabulary
             terms that can be used inside a Thing Description document, and
-            associated rules which allow to describe WoT operations using
-            NDN. Additionally, relevant examples are provided to showcase
+            associated rules which allow to describe WoT operations that use
+            NDN.
+            Additionally, relevant examples are provided to showcase
             different vocabulary terms and the associated behavior.
         </p>
     </section>
@@ -103,17 +105,18 @@
         <h2>Introduction</h2>
         <!-- TODO -->
         <p>
-            This document describes how to present devices that use NDN in a
-            Thing Description. In particular, the document explain how to
-            create valid Forms that allow for interacting with one or
-            multiple devices using NDN.
+            This document describes how to present devices that use
+            <abbr title="Named Data Networking">NDN</abbr> in a
+            <abbr title="Thing Description">TD</abbr>.
+            In particular, the document explains how to create valid Forms that
+            allow for interacting with one or multiple devices using NDN.
         </p>
     </section>
     <section id="conformance">
         <p>
-            Forms of a Thing Description instance with NDN Binding complies
-            with this specification if it follows the normative statements
-            in <a href="#vocabulary"></a> and <a href="#mappings"></a>.
+            Forms of a TD instance with NDN Binding comply with this
+            specification if they follow the normative statements in
+            [[[#vocabulary]]] and [[[#mappings]]].
         </p>
         <p>
             A JSON Schema [[?JSON-SCHEMA]] to validate Thing Description
@@ -123,13 +126,45 @@
     </section>
     <section id="overview">
         <h2>Protocol Overview</h2>
-        <!-- TODO -->
+
+        <p>
+            In contrast to "classic" IP-based communication where data is
+            retrieved by specifying IP addresses and therefore host locations,
+            in Named Data Networking (NDN) the data itself it at the center of
+            the protocol.
+            As the name of the protocol suggests, data is not retrieved by addressing
+            a particular server, for example, but by requesting the data by the name
+            associated to it.
+            To achieve that, NDN only uses two different kinds of packets:
+
+        <ul>
+            <li>
+                An Interest Packet for requesting data from the network, and
+            </li>
+            <li>
+                A Data Packet which is used for transporting the requested data.
+            </li>
+        </ul>
+        </p>
+
+        <p>
+            As an Interest Packet is propagated throughout the network via NDN Forwarders,
+            an NDN consumer only needs to specify the name of the data it is interested in,
+            while the routing and retrieval of the data is handled on the network level.
+            During this process, NDN Forwards can utilize caching of Data Packets to shorten
+            the way the data has to travel to the consumer, further decoupling the data from
+            its producer.
+            This brings features known from approaches like
+            <abbr title="Content Delivery Networks">CDNs</abbr> down to the network level,
+            enabling paradigms such as Edge Computing.
+        </p>
+
         <p>
             An example for using the NDN binding with a WoT Thing
-            Description can be seen in [[[#example-single-thing]]]. Here, we
-            have an NDN name expressed as an NDN URI (see section
-            [[[#url]]]) in the `href` field of the `status` property. In
-            this example, the TD describes a single Thing available over NDN
+            Description can be seen in [[[#example-single-thing]]].
+            Here, we have an NDN name expressed as an NDN URI (see section
+            [[[#url]]]) in the `href` field of the `status` property.
+            In this example, the TD describes a single Thing available over NDN
             which can be uniquely addressed via its `id` within the NDN
             name.
         </p>
@@ -153,19 +188,20 @@
         </pre>
         <p>
             Note, however, that since NDN focuses on resources, an NDN name
-            does not need to refer only to a single host. Instead, a
-            resource can be available on multiple hosts at the same time,
+            does not need to refer only to a single host.
+            Instead, a resource can be available on multiple hosts at the same time,
             where the decision which host is going to be addressed might be
             made by forwarders. <!-- TODO: Rewrite -->
         </p>
         <p>
             An example for this approach can be seen in
-            [[[#example-multiple-things]]]. Here, we have multiple sensors
-            described by a single TD, available under a single NDN name
-            encoded as a URI. Sending an Interest packet to this name will
-            yield the measured temperature of all the nodes at the same
-            time. Therefore, this TD embodies an approach to interacting
-            with Things that is vastly different than the classic REST model
+            [[[#example-multiple-things]]].
+            Here, we have multiple sensors described by a single TD, available
+            under a single NDN name encoded as a URI.
+            Sending an Interest packet to this name will yield the measured
+            temperature of all the nodes at the same time.
+            Therefore, this TD embodies an approach to interacting with Things
+            that is vastly different than the classic REST model
             used by HTTP or CoAP, for example.
             <!-- TODO: Is this actually working? -->
         </p>
@@ -192,11 +228,36 @@
                 }
             }
         </pre>
+
+        <p>
+            Besides reading and observing properties, a TD Consumer can also
+            write data and trigger actions that require input data.
+            <!-- TODO: Add citation for NFN -->
+            For this purpose, concepts known from Named Function Networking
+            (<abbr title="Named Function Networking">NFN</abbr>) can be applied
+            where the name of the data that is supposed to be the input data can
+            be embedded into the NDN URI itself.
+            Besides providing a name for input data, the NFN approach can also
+            be used for performing complex operations in a distributed manner,
+            as multiple compute nodes can be involved and the data source can be
+            an external one that is not being hosted by the TD consumer itself.
+        </p>
+        <p class="ednote">
+            Examples for NFN are missing here.
+            Furthermore, there is the question whether NFN could be considered
+            a subprotocol and if there are other subprotocols which should be
+            taken into account.
+
+            An interesting resource is
+            <a href="http://conferences2.sigcomm.org/acm-icn/2017/files/tutorial-ndn-ccnlite-riot/9-NFN.pdf">this
+                presentation</a>,
+            the corresponding paper(s) should be cited somewhere.
+        </p>
         <p>
             The following sections provide an overview of the NDN features
             defined at the time of writing and give examples of a how these
-            can be used in a [[[WOT-THING-DESCRIPTION11]]]. The vocabulary
-            terms used in these examples are defined in section
+            can be used in a [[[WOT-THING-DESCRIPTION11]]].
+            The vocabulary terms used in these examples are defined in section
             [[[#vocabulary]]].
         </p>
     </section>
@@ -204,9 +265,8 @@
         <h2>URI Schemes</h2>
         <p>
             NDN defines the following
-            <abbr title="Uniform Resource Identifier">URI</abbr>
-            scheme for expressing NDN names and providing a means for
-            locating a resource:
+            <abbr title="Uniform Resource Identifier">URI</abbr> scheme for
+            expressing NDN names and providing a means for locating a resource:
         </p>
         <table class="data">
             <thead>
