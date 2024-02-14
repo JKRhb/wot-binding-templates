@@ -181,8 +181,8 @@
                 "@context": "https://www.w3.org/2022/wot/td/v1.1",
                 "title": "Named Data Networking WoT TD Example",
                 "id": "urn:a3a54675-6324-444f-93ca-139-dc7ab3317",
-                "temperature": {
-                    "status": {
+                "properties": {
+                    "temperature": {
                         "type": "string",
                         "readOnly": true,
                         "forms": [{
@@ -263,6 +263,31 @@
                 presentation</a>,
             the corresponding paper(s) should be cited somewhere.
         </p>
+
+        <pre id="example-write-property" class="example" title="An example Thing Description demonstrating how NDN can be used with input data">
+            {
+                "@context": "https://www.w3.org/2022/wot/td/v1.1",
+                "title": "Named Data Networking WoT TD Example with input data",
+                "id": "urn:a3a54675-6324-444f-93ca-139-dc7ab3317",
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "uriVariables": {
+                            "statusValueName": {
+                                "type": "string",
+                                "format": "TODO",
+                            }
+                        }
+                        "forms": [{
+                            "href": "ndn://example-domain/lightswitch-01/properties/a3a54675-6324-444f-93ca-139-dc7ab3317/{+statusValueName}",
+                            "contentType": "application/json",
+                            "op": ["writeproperty"]
+                        }]
+                    }
+                }
+            }
+        </pre>
+
         <p>
             The following sections provide an overview of the NDN features
             defined at the time of writing and give examples of a how these
