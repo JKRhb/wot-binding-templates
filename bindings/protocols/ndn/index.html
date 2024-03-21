@@ -67,6 +67,18 @@
                     href: "https://named-data.net/doc/ndn-tlv/",
                     authors: ["Named Data Networking"],
                 },
+                SVS: {
+                    // TODO: Fix citation
+                    title: "State Vector Sync Specification",
+                    href: "https://named-data.github.io/StateVectorSync/",
+                    authors: ["Named Data Networking"],
+                },
+                "SVS-PS": {
+                    // TODO: Fix citation
+                    title: "State Vector Sync Pub/Sub Specification",
+                    href: "https://named-data.github.io/StateVectorSync/PubSubSpec.html",
+                    authors: ["Named Data Networking"],
+                },
                 NFN: {
                     title: "An Information Centric Network for Computing the Distribution of Computations",
                     authors: ["Manolis Sifalakis",  "Basil Kohler", "Christopher Scherb", "Christian Tschudin"],
@@ -169,6 +181,8 @@
             enabling paradigms such as Edge Computing.
         </p>
 
+        <h3>Reading Properties</h3>
+
         <p>
             An example for using the NDN binding with a WoT Thing
             Description can be seen in [[[#example-single-thing]]].
@@ -188,7 +202,7 @@
                         "type": "string",
                         "readOnly": true,
                         "forms": [{
-                            "href": "ndn://example-domain/thermostat-01/properties/a3a54675-6324-444f-93ca-139-dc7ab3317/temperature", <!-- TODO: To what extent should the URI be limited to the convention in Junior's paper? -->
+                            "href": "ndn:///example-domain/thermostat-01/properties/a3a54675-6324-444f-93ca-139-dc7ab3317/temperature", <!-- TODO: To what extent should the URI be limited to the convention in Junior's paper? -->
                             "contentType": "application/json", <!-- TODO: How to deal with the contentType here? -->
                             "op": ["readproperty"]
                         }]
@@ -233,7 +247,7 @@
                         "type": "string",
                         "readOnly": true,
                         "forms": [{
-                            "href": "ndn://example-domain/thermostats/properties/temperature",
+                            "href": "ndn:///example-domain/thermostats/properties/temperature",
                             "contentType": "application/json",
                             "op": ["readproperty"]
                         }]
@@ -241,6 +255,25 @@
                 }
             }
         </pre>
+
+        <h3>Observing Properties</h3>
+
+        <p>
+            Since NDN is – in contrast to IP and IP-based protocols – pull-based
+            instead of push-based, a simple mechanism for observing changes is
+            to continously send Interests in order to be notified as soon as
+            a new Data packet is being published.
+            <!-- TODO: Should this be its own subprotocol..? -->
+        </p>
+
+        <p>
+            A more sophisticated approach is to use a synchronization protocol
+            such as State Vector Sync [[?SVS]] and a publisher-subscriber
+            protocol such as SVS Pub/Sub [[?SVS-PS]].
+
+        </p>
+
+        <h3>Writing Properties</h3>
 
         <p>
             Besides reading and observing properties, a TD Consumer can also
@@ -281,7 +314,7 @@
                             }
                         }
                         "forms": [{
-                            "href": "ndn://example-domain/lightswitch-01/properties/a3a54675-6324-444f-93ca-139-dc7ab3317/{+statusValueName}",
+                            "href": "ndn:///example-domain/lightswitch-01/properties/a3a54675-6324-444f-93ca-139-dc7ab3317/{+statusValueName}",
                             "contentType": "application/json",
                             "op": ["writeproperty"]
                         }]
