@@ -1,0 +1,55 @@
+---
+id: wot-ndn
+name: wot-ndn
+title: NDN Binding Template for WoT Thing Description
+description: NDN Binding Template for WoT Thing Description
+license: MIT
+see_also:
+  - https://github.com/JKRhb/wot-binding-templates/tree/ndn-binding
+created_by: https://example.org # TODO: Add proper attribution
+prefixes:
+  linkml: https://w3id.org/linkml/
+  linkml_common: https://w3id.org/linkml/linkml-common
+  wot-ndn:
+    prefix_prefix: wot-ndn
+    prefix_reference: https://www.w3.org/2019/wot/ndn#
+  hctl:
+    prefix_prefix: hctl
+    prefix_reference: https://www.w3.org/2019/wot/hypermedia#
+  td:
+    prefix_prefix: td
+    prefix_reference: https://www.w3.org/2019/wot/td#
+imports:
+  - linkml:types
+default_range: string
+default_prefix: wot-ndn
+
+classes:
+  # TODO: Extend LinkML model in TD repository
+  InteractionAffordance:
+      attributes:
+        forms:
+          from_schema: td:hasForm
+          description: >-
+            Set of form hypermedia controls that describe how an operation can be performed.
+          required:
+          multivalued: true
+          range: NdnForm
+
+  PropertyAffordance:
+    is_a: InteractionAffordance
+    class_uri: td:PropertyAffordance
+
+
+  NdnForm:
+    class_uri: hctl:Form
+    slots:
+      - canBePrefix
+
+slots:
+  canBePrefix:
+    required: False
+    ifabsent: True
+    description: Indicates whether the NDN name within the Form's `href` field can be a prefix.
+    range: boolean
+    slot_uri: wot-ndn:canBePrefix

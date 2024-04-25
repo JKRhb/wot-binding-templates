@@ -126,3 +126,6 @@ catalog-*.xml
 
 # VS configurations
 .vs
+
+# Python virtual environment
+venv
