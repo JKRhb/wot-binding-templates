@@ -262,16 +262,19 @@
         <p>
             Since NDN is – in contrast to IP and IP-based protocols – pull-based
             instead of push-based, a simple mechanism for observing changes is
-            to continously send Interests in order to be notified as soon as
+            to continuously send Interests in order to be notified as soon as
             a new Data packet is being published.
-            <!-- TODO: Should this be its own subprotocol..? -->
+            <!-- TODO: Make decision if this is really the right way to go here -->
+            This is the default behavior a consumer SHOULD follow for an
+            observable property.
         </p>
 
-        <p>
+        <p class="ednote" title="Synchronization Protocols">
             A more sophisticated approach is to use a synchronization protocol
-            such as State Vector Sync [[?SVS]] and a publisher-subscriber
+            such as State Vector Sync (SVS) [[?SVS]] and a publisher-subscriber
             protocol such as SVS Pub/Sub [[?SVS-PS]].
-
+            These protocols could become their own `subprotocol`s in future
+            version of this document.
         </p>
 
         <h3>Writing Properties</h3>
@@ -288,7 +291,7 @@
             as multiple compute nodes can be involved and the data source can be
             an external one that is not being hosted by the TD consumer itself.
         </p>
-        <p class="ednote">
+        <p class="ednote" title="Examples for NFN">
             Examples for NFN are missing here.
             Furthermore, there is the question whether NFN could be considered
             a subprotocol and if there are other subprotocols which should be
