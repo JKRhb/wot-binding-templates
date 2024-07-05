@@ -192,18 +192,17 @@
         </p>
 
         <p>
-            Regarding security, NDN secures data directly instead of establishing
-            secure communication channels making it possible to also exchange
-            data via unsecure communication channels.
-            To achieve this, NDN relies on public key cryptography and its own
-            certificate management protocol [[NDNCERT]] in addition to requiring
-            every data packet to be signed to ensure integrity of the received
-            data.
+            Regarding security, NDN protects the data itself data making it
+            possible to also communicate via unsecure communication channels.
+            To achieve that, NDN relies on public key cryptography and its own
+            certificate management protocol [[NDNCERT]].
+            Even if data packets are not encrypted, they have to at least be
+            signed to ensure their integrity.
         </p>
 
         <p class="ednote" title="NDN Security Schemes">
             It needs to be discussed which security mechanisms should be
-            described via a specific NDN security scheme.
+            described via a specific NDN security scheme, if any.
         </p>
 
         <h3>Reading Properties</h3>
