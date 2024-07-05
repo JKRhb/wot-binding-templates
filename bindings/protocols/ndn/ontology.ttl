@@ -1,0 +1,60 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix hctl: <https://www.w3.org/2019/wot/hypermedia#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix pav: <http://purl.org/pav/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix td: <https://www.w3.org/2019/wot/td#> .
+@prefix wot-ndn: <https://www.w3.org/2019/wot/ndn#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+wot-ndn:PropertyAffordance a owl:Class ;
+    rdfs:label "PropertyAffordance" ;
+    rdfs:subClassOf wot-ndn:InteractionAffordance ;
+    skos:exactMatch td:PropertyAffordance ;
+    skos:inScheme <wot-ndn> .
+
+<wot-ndn.owl.ttl> a owl:Ontology ;
+    rdfs:label "wot-ndn" ;
+    dcterms:license "MIT" ;
+    dcterms:title "NDN Binding Template for WoT Thing Description" ;
+    pav:createdBy <https://example.org> ;
+    rdfs:seeAlso <https://github.com/JKRhb/wot-binding-templates/tree/ndn-binding> ;
+    skos:definition "NDN Binding Template for WoT Thing Description" .
+
+wot-ndn:InteractionAffordance a owl:Class ;
+    rdfs:label "InteractionAffordance" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom wot-ndn:NdnForm ;
+            owl:onProperty wot-ndn:forms ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty wot-ndn:forms ] ;
+    skos:inScheme <wot-ndn> .
+
+wot-ndn:NdnForm a owl:Class ;
+    rdfs:label "NdnForm" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty wot-ndn:canBePrefix ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty wot-ndn:canBePrefix ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty wot-ndn:canBePrefix ] ;
+    skos:exactMatch hctl:Form ;
+    skos:inScheme <wot-ndn> .
+
+wot-ndn:forms a owl:ObjectProperty ;
+    rdfs:label "forms" ;
+    skos:definition "Set of form hypermedia controls that describe how an operation can be performed." ;
+    skos:inScheme <wot-ndn> .
+
+wot-ndn:canBePrefix a owl:DatatypeProperty ;
+    rdfs:label "canBePrefix" ;
+    rdfs:range xsd:boolean ;
+    skos:definition "Indicates whether the NDN name within the Form's `href` field can be a prefix." ;
+    skos:inScheme <wot-ndn> .
+
+
