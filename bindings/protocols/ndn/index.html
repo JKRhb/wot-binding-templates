@@ -117,15 +117,17 @@
             This document gives implementation guidelines regarding the use
             of Named Data Networking (NDN) in a WoT-context.
             NDN is a relatively new Information-Centric Approach for
-            Internet-communication that can be used both <em>over</em> the
-            Internet Protocol (IP) and as a <em>replacement</em> for
-            <abbr title="Internet Protocol">IP</abbr>.
+            Internet communication that strives become a potential alternative
+            to the conventional Internet Protocol (IP) in the future.
+            However, since it does not rely on a specific underlying protocol
+            due to its information-centric approach, it can also be used over
+            <abbr title="Internet Protocol">IP</abbr> itself.
         </p>
         <p>
-            More specifically, this document defines a set of vocabulary
-            terms that can be used inside a Thing Description document, and
-            associated rules which allow to describe
-            <abbr title="Web of Things">WoT</abbr> operations that use NDN.
+            This document defines a set of vocabulary terms that can be used
+            inside a Thing Description document, and associated rules which
+            allow to describe <abbr title="Web of Things">WoT</abbr> operations
+            that use NDN.
             Additionally, relevant examples are provided to showcase
             different vocabulary terms and the associated behavior.
         </p>
@@ -137,7 +139,6 @@
     </section>
     <section id="introduction">
         <h2>Introduction</h2>
-        <!-- TODO -->
         <p>
             This document describes how to present devices that use
             <abbr title="Named Data Networking">NDN</abbr> in a
@@ -251,7 +252,7 @@
             Sending an Interest packet to this name will yield the measured
             temperature of all the nodes at the same time.
             Therefore, this TD embodies an approach to interacting with Things
-            that is vastly different than the classic
+            that is vastly different than the
             <abbr title="Rpresentational State Transfer">REST</abbr> model
             used by <abbr title="Hypertext Transfer Protocol">HTTP</abbr> or
             <abbr title="Constrained Application Protocol">CoAP</abbr>, for
