@@ -148,8 +148,6 @@
     <section id="overview">
         <h2>Protocol Overview</h2>
 
-        <!-- TODO: Mention security aspects -->
-
         <p>
             In contrast to "classic" IP-based communication where data is
             retrieved by specifying IP addresses and therefore host locations,
@@ -180,6 +178,21 @@
             This brings features known from approaches like
             <abbr title="Content Delivery Networks">CDNs</abbr> down to the network level,
             enabling paradigms such as Edge Computing.
+        </p>
+
+        <p>
+            Regarding security, NDN secures data directly instead of establishing
+            secure communication channels making it possible to also exchange
+            data via unsecure communication channels.
+            To achieve this, NDN relies on public key cryptography and its own
+            certificate management protocol [[NDNCERT]] in addition to requiring
+            every data packet to be signed to ensure integrity of the received
+            data.
+        </p>
+
+        <p class="ednote" title="NDN Security Schemes">
+            It needs to be discussed which security mechanisms should be
+            described via a specific NDN security scheme.
         </p>
 
         <h3>Reading Properties</h3>
