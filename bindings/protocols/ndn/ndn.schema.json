@@ -9,7 +9,10 @@
                     "items": {
                         "$ref": "#/$defs/NdnForm"
                     },
-                    "type": "array"
+                    "type": [
+                        "array",
+                        "null"
+                    ]
                 }
             },
             "title": "InteractionAffordance",
@@ -21,7 +24,10 @@
             "properties": {
                 "canBePrefix": {
                     "description": "Indicates whether the NDN name within the Form's `href` field can be a prefix.",
-                    "type": "boolean"
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
                 }
             },
             "title": "NdnForm",
@@ -36,7 +42,10 @@
                     "items": {
                         "$ref": "#/$defs/NdnForm"
                     },
-                    "type": "array"
+                    "type": [
+                        "array",
+                        "null"
+                    ]
                 }
             },
             "title": "PropertyAffordance",

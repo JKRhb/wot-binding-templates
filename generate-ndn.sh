@@ -1,5 +1,3 @@
-#!/usr/bin/bash
-
 # Script that creates JSON Schema, ontology, and JSON-LD context files from the
 # LinkML definition file ndn.yaml.
 #
