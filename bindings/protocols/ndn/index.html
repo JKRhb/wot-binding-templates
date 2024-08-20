@@ -117,7 +117,7 @@
             This document gives implementation guidelines regarding the use
             of Named Data Networking (NDN) in a WoT-context.
             NDN is a relatively new Information-Centric Approach for
-            Internet communication that strives become a potential alternative
+            Internet communication that strives to become a potential alternative
             to the conventional Internet Protocol (IP) in the future.
             However, since it does not rely on a specific underlying protocol
             due to its information-centric approach, it can also be used over
@@ -144,7 +144,7 @@
             <abbr title="Named Data Networking">NDN</abbr> in a
             <abbr title="Thing Description">TD</abbr>.
             In particular, the document explains how to create valid Forms that
-            allow for interacting with one or multiple devices using NDN.
+            allow interactions with one or multiple devices using NDN.
         </p>
     </section>
     <section id="conformance">
@@ -165,10 +165,10 @@
         <p>
             In contrast to "classic" IP-based communication where data is
             retrieved by specifying IP addresses and therefore host locations,
-            in Named Data Networking (NDN) the data itself it at the center of
+            in Named Data Networking (NDN) the data itself is at the center of
             the protocol.
             As the name of the protocol suggests, data is not retrieved by addressing
-            a particular server, for example, but by requesting the data by the name
+            a particular server, but by requesting the data by the name
             associated to it.
             To achieve that, NDN only uses two different kinds of packets:
         </p>
@@ -186,7 +186,7 @@
             As an Interest Packet is propagated throughout the network via NDN Forwarders,
             an NDN consumer only needs to specify the name of the data it is interested in,
             while the routing and retrieval of the data is handled on the network level.
-            During this process, NDN Forwards can utilize caching of Data Packets to shorten
+            During this process, NDN Forwarders can utilize caching of Data Packets to shorten
             the way the data has to travel to the consumer, further decoupling the data from
             its producer.
             This brings features known from approaches like
@@ -195,7 +195,7 @@
         </p>
 
         <p>
-            Regarding security, NDN protects the data itself data making it
+            Regarding security, NDN protects the data itself making it
             possible to also communicate via unsecure communication channels.
             To achieve that, NDN relies on public key cryptography and its own
             certificate management protocol [[NDNCERT]].
