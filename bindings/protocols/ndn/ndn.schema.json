@@ -1,0 +1,62 @@
+{
+    "$defs": {
+        "InteractionAffordance": {
+            "additionalProperties": false,
+            "description": "",
+            "properties": {
+                "forms": {
+                    "description": "Set of form hypermedia controls that describe how an operation can be performed.",
+                    "items": {
+                        "$ref": "#/$defs/NdnForm"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                }
+            },
+            "title": "InteractionAffordance",
+            "type": "object"
+        },
+        "NdnForm": {
+            "additionalProperties": false,
+            "description": "",
+            "properties": {
+                "canBePrefix": {
+                    "description": "Indicates whether the NDN name within the Form's `href` field can be a prefix.",
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                }
+            },
+            "title": "NdnForm",
+            "type": "object"
+        },
+        "PropertyAffordance": {
+            "additionalProperties": false,
+            "description": "",
+            "properties": {
+                "forms": {
+                    "description": "Set of form hypermedia controls that describe how an operation can be performed.",
+                    "items": {
+                        "$ref": "#/$defs/NdnForm"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                }
+            },
+            "title": "PropertyAffordance",
+            "type": "object"
+        }
+    },
+    "$id": "wot-ndn",
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "additionalProperties": true,
+    "metamodel_version": "1.7.0",
+    "title": "wot-ndn",
+    "type": "object",
+    "version": null
+}
