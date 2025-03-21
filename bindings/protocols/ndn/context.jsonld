@@ -14,18 +14,8 @@
          "@type": "xsd:boolean",
          "@id": "canBePrefix"
       },
-      "forms": {
-         "@type": "@id",
-         "@id": "forms"
-      },
-      "InteractionAffordance": {
-         "@id": "InteractionAffordance"
-      },
       "NdnForm": {
          "@id": "hctl:Form"
-      },
-      "PropertyAffordance": {
-         "@id": "td:PropertyAffordance"
       }
    }
 }

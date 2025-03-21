@@ -26,19 +26,19 @@ default_prefix: wot-ndn
 
 classes:
   # TODO: Extend LinkML model in TD repository
-  InteractionAffordance:
-      attributes:
-        forms:
-          from_schema: td:hasForm
-          description: >-
-            Set of form hypermedia controls that describe how an operation can be performed.
-          required:
-          multivalued: true
-          range: NdnForm
+  # InteractionAffordance:
+  #     attributes:
+  #       forms:
+  #         from_schema: td:hasForm
+  #         description: >-
+  #           Set of form hypermedia controls that describe how an operation can be performed.
+  #         required:
+  #         multivalued: true
+  #         range: NdnForm
 
-  PropertyAffordance:
-    is_a: InteractionAffordance
-    class_uri: td:PropertyAffordance
+  # PropertyAffordance:
+  #   is_a: InteractionAffordance
+  #   class_uri: td:PropertyAffordance
 
 
   NdnForm:
@@ -53,3 +53,4 @@ slots:
     description: Indicates whether the NDN name within the Form's `href` field can be a prefix.
     range: boolean
     slot_uri: wot-ndn:canBePrefix
+    domain: NdnForm

@@ -1,23 +1,5 @@
 {
     "$defs": {
-        "InteractionAffordance": {
-            "additionalProperties": false,
-            "description": "",
-            "properties": {
-                "forms": {
-                    "description": "Set of form hypermedia controls that describe how an operation can be performed.",
-                    "items": {
-                        "$ref": "#/$defs/NdnForm"
-                    },
-                    "type": [
-                        "array",
-                        "null"
-                    ]
-                }
-            },
-            "title": "InteractionAffordance",
-            "type": "object"
-        },
         "NdnForm": {
             "additionalProperties": false,
             "description": "",
@@ -31,24 +13,6 @@
                 }
             },
             "title": "NdnForm",
-            "type": "object"
-        },
-        "PropertyAffordance": {
-            "additionalProperties": false,
-            "description": "",
-            "properties": {
-                "forms": {
-                    "description": "Set of form hypermedia controls that describe how an operation can be performed.",
-                    "items": {
-                        "$ref": "#/$defs/NdnForm"
-                    },
-                    "type": [
-                        "array",
-                        "null"
-                    ]
-                }
-            },
-            "title": "PropertyAffordance",
             "type": "object"
         }
     },
