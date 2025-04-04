@@ -1,0 +1,32 @@
+{
+   "@context": {
+      "xsd": "http://www.w3.org/2001/XMLSchema#",
+      "hctl": "https://www.w3.org/2019/wot/hypermedia#",
+      "linkml": "https://w3id.org/linkml/",
+      "linkml_common": {
+         "@id": "https://w3id.org/linkml/linkml-common",
+         "@prefix": true
+      },
+      "td": "https://www.w3.org/2019/wot/td#",
+      "wot-ndn": "https://www.w3.org/2019/wot/ndn#",
+      "@vocab": "https://www.w3.org/2019/wot/ndn#",
+      "canBePrefix": {
+         "@type": "xsd:boolean",
+         "@id": "canBePrefix"
+      },
+      "forms": {
+         "@type": "@id",
+         "@id": "forms"
+      },
+      "InteractionAffordance": {
+         "@id": "InteractionAffordance"
+      },
+      "NdnForm": {
+         "@id": "hctl:Form"
+      },
+      "PropertyAffordance": {
+         "@id": "td:PropertyAffordance"
+      }
+   }
+}
+

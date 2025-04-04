@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="color-scheme" content="light dark">
+    <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove"></script>
+    <script class="remove">
+        var respecConfig = {
+            specStatus: "ED",
+            group: "wg/wot",
+            editors: [
+                {
+                    name: "Jan Romann",
+                    w3cid: "129690",
+                    company: "Invited Expert",
+                    companyURL: "https://github.com/JKRhb",
+                },
+                {
+                    name: "Junior Dongo",
+                    // FIXME: company field is required by ReSpec
+                    company: "N. N.",
+                    companyURL: "https://github.com/mistersound",
+                },
+            ],
+            edDraftURI:
+                "https://w3c.github.io/wot-binding-templates/bindings/protocols/coap/",
+            shortName: "wot-ndn-binding",
+            github: "https://github.com/w3c/wot-binding-templates",
+            otherLinks: [
+                {
+                    key: "Core Binding Templates Specification",
+                    data: [
+                        {
+                            value: "Web of Things (WoT) Binding Templates",
+                            href: "../../../index.html",
+                        },
+                    ],
+                },
+                {
+                    key: "JSON Schema",
+                    data: [
+                        {
+                            value: "NDN JSON Schema",
+                            href: "ndn.schema.json",
+                        },
+                    ],
+                },
+                {
+                    key: "Ontology",
+                    data: [
+                        {
+                            value: "NDN Vocabulary for the Web of Things",
+                            href: "ontology.html",
+                        },
+                    ],
+                },
+            ],
+            localBiblio: {
+                "Dongo-WoT-NDN": {
+                    title: "An Approach for Web of Things over Named Data Networking",
+                    href: "https://doi.org/10.1145/3567445.3571106",
+                    authors: ["Junior Dongo"],
+                    date: "7-10 November 2022",
+                    publisher:
+                        "Association for Computing Machinery (ACM): IoT'22 Proceedings",
+                },
+                NDNTLV: {
+                    title: "NDN Packet Format Specification v0.3",
+                    href: "https://named-data.net/doc/ndn-tlv/",
+                    authors: ["Named Data Networking"],
+                },
+                SVS: {
+                    // TODO: Fix citation
+                    title: "State Vector Sync Specification",
+                    href: "https://named-data.github.io/StateVectorSync/",
+                    authors: ["Named Data Networking"],
+                },
+                "SVS-PS": {
+                    // TODO: Fix citation
+                    title: "State Vector Sync Pub/Sub Specification",
+                    href: "https://named-data.github.io/StateVectorSync/PubSubSpec.html",
+                    authors: ["Named Data Networking"],
+                },
+                NFN: {
+                    title: "An Information Centric Network for Computing the Distribution of Computations",
+                    authors: ["Manolis Sifalakis",  "Basil Kohler", "Christopher Scherb", "Christian Tschudin"],
+                    href: "https://dl.acm.org/doi/10.1145/2660129.2660150",
+                    publisher: "Association of Computing Machinery (ACM): ICN'14 Proceedings",
+                },
+                NDNCERT: {
+                    title: "NDNCERT: Universal Usable Trust Management for NDN",
+                    authors: [
+                        "Zhiyi Zhang",
+                        "Alexander Afanasyev",
+                        "Lixia Zhang",
+                    ],
+                    href: "https://doi.org/10.1145/3125719.3132090",
+                    publisher: "ICN '17: Proceedings of the 4th ACM Conference on Information-Centric Networking",
+                    date: 2017,
+                }
+            },
+        };
+    </script>
+    <title>Web of Things (WoT) NDN Binding Template</title>
+</head>
+
+<body>
+    <section id="abstract">
+        <p>
+            In the context of the Web of Things (WoT), a Binding Template is
+            a blueprint that gives guidance on how to implement a specific
+            <abbr title="Internet of Things">IoT</abbr> protocol, data format or
+            IoT platform.
+            The Core Binding Templates specification explains the overall
+            mechanism and requirements for any binding to follow.
+            This document gives implementation guidelines regarding the use
+            of Named Data Networking (NDN) in a WoT-context.
+            NDN is a relatively new Information-Centric Approach for
+            Internet communication that strives to become a potential alternative
+            to the conventional Internet Protocol (IP) in the future.
+            However, since it does not rely on a specific underlying protocol
+            due to its information-centric approach, it can also be used over
+            <abbr title="Internet Protocol">IP</abbr> itself.
+        </p>
+        <p>
+            This document defines a set of vocabulary terms that can be used
+            inside a Thing Description document, and associated rules which
+            allow to describe <abbr title="Web of Things">WoT</abbr> operations
+            that use NDN.
+            Additionally, relevant examples are provided to showcase
+            different vocabulary terms and the associated behavior.
+        </p>
+    </section>
+    <section id="sotd">
+        <p>
+            <em>This document is a work in progress</em>
+        </p>
+    </section>
+    <section id="introduction">
+        <h2>Introduction</h2>
+        <p>
+            This document describes how to present devices that use
+            <abbr title="Named Data Networking">NDN</abbr> in a
+            <abbr title="Thing Description">TD</abbr>.
+            In particular, the document explains how to create valid Forms that
+            allow interactions with one or multiple devices using NDN.
+        </p>
+    </section>
+    <section id="conformance">
+        <p>
+            Forms of a TD instance with NDN Binding comply with this
+            specification if they follow the normative statements in
+            [[[#vocabulary]]] and [[[#mappings]]].
+        </p>
+        <p>
+            A JSON Schema [[?JSON-SCHEMA]] to validate TD instances that contain
+            an NDN Binding is provided in the <a href="ndn.schema.json">GitHub
+                repository</a>.
+        </p>
+    </section>
+    <section id="overview">
+        <h2>Protocol Overview</h2>
+
+        <p>
+            In contrast to "classic" IP-based communication where data is
+            retrieved by specifying IP addresses and therefore host locations,
+            in Named Data Networking (NDN) the data itself is at the center of
+            the protocol.
+            As the name of the protocol suggests, data is not retrieved by addressing
+            a particular server, but by requesting the data by the name
+            associated to it.
+            To achieve that, NDN only uses two different kinds of packets:
+        </p>
+
+        <ul>
+            <li>
+                An Interest Packet for requesting data from the network, and
+            </li>
+            <li>
+                A Data Packet which is used for transporting the requested data.
+            </li>
+        </ul>
+
+        <p>
+            As an Interest Packet is propagated throughout the network via NDN Forwarders,
+            an NDN consumer only needs to specify the name of the data it is interested in,
+            while the routing and retrieval of the data is handled on the network level.
+            During this process, NDN Forwarders can utilize caching of Data Packets to shorten
+            the way the data has to travel to the consumer, further decoupling the data from
+            its producer.
+            This brings features known from approaches like
+            <abbr title="Content Delivery Networks">CDNs</abbr> down to the network level,
+            enabling paradigms such as Edge Computing.
+        </p>
+
+        <p>
+            Regarding security, NDN protects the data itself making it
+            possible to also communicate via unsecure communication channels.
+            To achieve that, NDN relies on public key cryptography and its own
+            certificate management protocol [[NDNCERT]].
+            Even if data packets are not encrypted, they have to at least be
+            signed to ensure their integrity.
+        </p>
+
+        <p class="ednote" title="NDN Security Schemes">
+            It needs to be discussed which security mechanisms should be
+            described via a specific NDN security scheme, if any.
+        </p>
+
+        <h3>Reading Properties</h3>
+
+        <p>
+            An example for using the NDN binding with a WoT Thing
+            Description can be seen in [[[#example-single-thing]]].
+            Here, we have an NDN name expressed as an NDN URI (see section
+            [[[#url]]]) in the `href` field of the `status` property.
+            In this example, the TD describes a single Thing available over NDN
+            which can be uniquely addressed via its `id` within the NDN
+            name.
+        </p>
+        <pre id="example-single-thing" class="example" title="A simple Thing Description using NDN">
+            {
+                "@context": "https://www.w3.org/2022/wot/td/v1.1",
+                "title": "Named Data Networking WoT TD Example",
+                "id": "urn:a3a54675-6324-444f-93ca-139-dc7ab3317",
+                "properties": {
+                    "temperature": {
+                        "type": "string",
+                        "readOnly": true,
+                        "forms": [{
+                            "href": "ndn:///example-domain/thermostat-01/properties/a3a54675-6324-444f-93ca-139-dc7ab3317/temperature", <!-- TODO: To what extent should the URI be limited to the convention in Junior's paper? -->
+                            "contentType": "application/json", <!-- TODO: How to deal with the contentType here? -->
+                            "op": ["readproperty"]
+                        }]
+                    }
+                }
+            }
+        </pre>
+        <p>
+            Note, however, that since NDN focuses on resources, an NDN name
+            does not need to refer only to a single host.
+            Instead, a resource can be available on multiple hosts at the same time,
+            where the decision which host is going to be addressed might be
+            made by forwarders. <!-- TODO: Rewrite -->
+        </p>
+        <p>
+            An example for this approach can be seen in
+            [[[#example-multiple-things]]].
+            Here, we have multiple sensors described by a single TD, available
+            under a single NDN name encoded as a URI.
+            Sending an Interest packet to this name will yield the measured
+            temperature of all the nodes at the same time.
+            Therefore, this TD embodies an approach to interacting with Things
+            that is vastly different than the
+            <abbr title="Rpresentational State Transfer">REST</abbr> model
+            used by <abbr title="Hypertext Transfer Protocol">HTTP</abbr> or
+            <abbr title="Constrained Application Protocol">CoAP</abbr>, for
+            example.
+        </p>
+        <!-- TODO: Is this actually working? -->
+        <pre id="example-multiple-things" class="example" title="A TD referring to multiple Things using NDN">
+            {
+                "@context": [
+                    "https://www.w3.org/2022/wot/td/v1.1",
+                    {
+                        "ndn": "https://www.example.com/ns/ndn"
+                    }
+                ],
+                "title": "Named Data Networking WoT TD Example",
+                "id": "urn:TODO",
+                "properties": {
+                    "temperature": {
+                        "type": "string",
+                        "readOnly": true,
+                        "forms": [{
+                            "href": "ndn:///example-domain/thermostats/properties/temperature",
+                            "contentType": "application/json",
+                            "op": ["readproperty"]
+                        }]
+                    }
+                }
+            }
+        </pre>
+
+        <h3>Observing Properties</h3>
+
+        <p>
+            Since NDN is – in contrast to IP and IP-based protocols – pull-based
+            instead of push-based, a simple mechanism for observing changes is
+            to continuously send Interests in order to be notified as soon as
+            a new Data packet is being published.
+            <!-- TODO: Make decision if this is really the right way to go here -->
+            This is the default behavior a consumer SHOULD follow for an
+            observable property.
+        </p>
+
+        <p class="ednote" title="Synchronization Protocols">
+            A more sophisticated approach is to use a synchronization protocol
+            such as State Vector Sync (SVS) [[?SVS]] and a publisher-subscriber
+            protocol such as SVS Pub/Sub [[?SVS-PS]].
+            These protocols could become their own `subprotocol`s in future
+            version of this document.
+        </p>
+
+        <h3>Writing Properties</h3>
+
+        <p>
+            Besides reading and observing properties, a TD Consumer can also
+            write data and trigger actions that require input data.
+            For this purpose, concepts known from Named Function Networking
+            (<abbr title="Named Function Networking">NFN</abbr>) [[?NFN]] can be
+            applied where the name of the data that is supposed to be the input
+            data can be embedded into the NDN URI itself.
+            Besides providing a name for input data, the NFN approach can also
+            be used for performing complex operations in a distributed manner,
+            as multiple compute nodes can be involved and the data source can be
+            an external one that is not being hosted by the TD consumer itself.
+        </p>
+        <p class="ednote" title="Examples for NFN">
+            Examples for NFN are missing here.
+            Furthermore, there is the question whether NFN could be considered
+            a subprotocol and if there are other subprotocols which should be
+            taken into account.
+
+            An interesting resource is
+            <a href="http://conferences2.sigcomm.org/acm-icn/2017/files/tutorial-ndn-ccnlite-riot/9-NFN.pdf">this
+                presentation</a>,
+            the corresponding paper(s) should be cited somewhere.
+        </p>
+
+        <pre id="example-write-property" class="example" title="An example Thing Description demonstrating how NDN can be used with input data">
+            {
+                "@context": "https://www.w3.org/2022/wot/td/v1.1",
+                "title": "Named Data Networking WoT TD Example with input data",
+                "id": "urn:a3a54675-6324-444f-93ca-139-dc7ab3317",
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "uriVariables": {
+                            "statusValueName": {
+                                "type": "string",
+                                "format": "TODO",
+                            }
+                        }
+                        "forms": [{
+                            "href": "ndn:///example-domain/lightswitch-01/properties/a3a54675-6324-444f-93ca-139-dc7ab3317/{+statusValueName}",
+                            "contentType": "application/json",
+                            "op": ["writeproperty"]
+                        }]
+                    }
+                }
+            }
+        </pre>
+
+        <p>
+            The following sections provide an overview of the NDN features
+            defined at the time of writing and give examples of a how these
+            can be used in a [[[WOT-THING-DESCRIPTION11]]].
+            The vocabulary terms used in these examples are defined in section
+            [[[#vocabulary]]].
+        </p>
+    </section>
+    <section id="url">
+        <h2>URI Schemes</h2>
+        <p>
+            NDN defines the following
+            <abbr title="Uniform Resource Identifier">URI</abbr> scheme for
+            expressing NDN names and providing a means for locating a resource:
+        </p>
+        <table class="data">
+            <thead>
+                <tr>
+                    <th>URI Scheme</th>
+                    <th>Reference</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>ndn</td>
+                    <td>[[NDNTLV]]</td>
+                </tr>
+            </tbody>
+        </table>
+        <p>
+            Note that the `ndn` URI scheme is not yet formally registered
+            with IANA yet.
+        </p>
+    </section>
+    <section id="vocabulary">
+        <h2>NDN Vocabulary</h2>
+        <p>
+            This section describes the vocabulary used in NDN. A protocol
+            binding implementation should use the vocabulary defined in this
+            section to describe the different configuration that can be used
+            to exchange data within the Web of Things using NDN.
+        </p>
+
+        <!-- TODO: Which kind of vocabulary terms do we need to define here? -->
+
+        <section>
+            <h3>Form terms</h3>
+            <table class="def">
+                <thead>
+                    <tr>
+                        <th>Vocabulary term</th>
+                        <th>Description</th>
+                        <th>Assignment</th>
+                        <th>Type</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- TODO: Render from an ontology -->
+                    <tr>
+                        <!-- TODO: Does it make sense to include this term? -->
+                        <td><code>ndn:canBePrefix</code></td>
+                        <td>
+                            Indicates whether the NDN name within the Form's
+                            `href` field can be a prefix.
+                        </td>
+                        <td>optional</td>
+                        <td><a href="http://www.w3.org/2001/XMLSchema#boolean">boolean</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </section>
+    <section id="mappings">
+        <h2>Mappings</h2>
+        <p>
+            This section describes the strategies and default values to use
+            protocol specific concepts within the
+            <a href="https://w3c.github.io/wot-architecture/#dfn-interaction-model">WoT Interaction model</a>.
+        </p>
+
+        <!-- TODO: Introduce mechanism for writing data. -->
+
+        <section id="default-mappings">
+            <h3>Default mappings</h3>
+            <table class="def">
+                <thead>
+                    <tr>
+                        <th>Operation</th>
+                        <th>Default Binding</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>readproperty</code></td>
+                        <td><code>???</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>writeproperty</code></td>
+                        <td><code>???</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>observeproperty</code></td>
+                        <td><code>???</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>unobserveproperty</code></td>
+                        <td><code>???</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>readmultipleproperties</code></td>
+                        <td><code>???</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>writemultipleproperties</code></td>
+                        <td><code>???</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>readallproperties</code></td>
+                        <td><code>???</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>writeallproperties</code></td>
+                        <td><code>???</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>observeallproperties</code></td>
+                        <td><code>???</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>unobserveallproperties</code></td>
+                        <td><code>???</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>invokeaction</code></td>
+                        <td><code>???</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>queryaction</code></td>
+                        <td><code>???</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>cancelaction</code></td>
+                        <td><code>???</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>queryallactions</code></td>
+                        <td><code>???</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>subscribeevent</code></td>
+                        <td><code>???</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>unsubscribeevent</code></td>
+                        <td><code>???</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>subscribeallevents</code></td>
+                        <td><code>???</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>unsubscribeallevents</code></td>
+                        <td><code>???</code></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        <section id="possible-mappings">
+            <h3>Possible mappings</h3>
+            <p class="ednote">
+                <!-- TODO: -->
+                This section should describe other mappings that can
+                be used by TD designers. It is meant to be informative but
+                it provides guidelines for implementers.
+            </p>
+        </section>
+    </section>
+    <section id="sec-acknowledgements" class="appendix">
+        <h1>Acknowledgements</h1>
+        <p>
+            This binding is based on the work of Junior Dongo
+            [[?Dongo-WoT-NDN]].
+        </p>
+    </section>
+</body>
+
+</html>
